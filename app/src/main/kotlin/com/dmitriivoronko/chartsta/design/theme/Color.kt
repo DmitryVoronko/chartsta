@@ -1,4 +1,4 @@
-package com.dmitriivoronko.chartsta.ui.theme
+package com.dmitriivoronko.chartsta.design.theme
 
 import androidx.compose.ui.graphics.Color
 
