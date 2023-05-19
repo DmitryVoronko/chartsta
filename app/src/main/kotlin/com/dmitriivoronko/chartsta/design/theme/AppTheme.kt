@@ -22,25 +22,21 @@ internal val LocalIndents = staticCompositionLocalOf<Indents> {
 }
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Blue,
+    primaryContainer = Blue.copy(alpha = 0.54f),
+    secondary = Yellow,
+    secondaryContainer = Yellow.copy(alpha = 0.54f),
+    tertiary = Green,
+    tertiaryContainer = Green.copy(alpha = 0.54f),
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Blue,
+    primaryContainer = Blue.copy(alpha = 0.12f),
+    secondary = Yellow,
+    secondaryContainer = Yellow.copy(alpha = 0.12f),
+    tertiary = Green,
+    tertiaryContainer = Green.copy(alpha = 0.12f),
 )
 
 object AppTheme {

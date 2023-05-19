@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +31,8 @@ import com.dmitriivoronko.chartsta.design.theme.AppTheme
 
 @Composable
 fun PointCountInputScreen(
-    pointCount: String,
-    onPointCountChange: (String) -> Unit,
+    pointCount: Int?,
+    onPointCountChange: (Int?) -> Unit,
     onGoClick: () -> Unit,
 ) {
     Scaffold { contentPadding ->
@@ -71,7 +71,7 @@ fun PointCountInputScreen(
 
             SpacerComponent { x2 }
 
-            OutlinedButton(
+            ElevatedButton(
                 onClick = onGoClick,
                 modifier = Modifier
                     .padding(horizontal = AppTheme.indents.x2)
@@ -90,7 +90,7 @@ fun PointCountInputScreen(
 fun PointCountInputScreenPreview() {
     AppTheme {
         var pointCountState by remember {
-            mutableStateOf("")
+            mutableStateOf<Int?>(null)
         }
 
         PointCountInputScreen(

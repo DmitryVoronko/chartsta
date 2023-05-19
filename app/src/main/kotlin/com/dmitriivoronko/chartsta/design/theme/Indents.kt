@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 @Suppress("ConstructorParameterNaming")
 @Immutable
 data class Indents(
+    val x0_125: Dp = 1.dp,
     val x1: Dp = 8.dp,
     val x2: Dp = 16.dp,
     val x3: Dp = 24.dp,

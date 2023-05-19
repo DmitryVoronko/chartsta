@@ -11,6 +11,11 @@ compose-bom = "2023.05.01"
 navigation-compose = "2.5.3"
 dagger = "2.44"
 hilt-navigation-compose = "1.0.0"
+vico-charts = "1.6.6"
+retrofit = "2.9.0"
+gson = "2.10.1"
+okhttp = "4.10.0"
+logcat = "0.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -35,6 +40,15 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger" }
+vico-charts-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico-charts" }
+vico-charts-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico-charts" }
+vico-charts-compose-material3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico-charts" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+logcat = { group = "com.squareup.logcat", name = "logcat", version.ref = "logcat" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

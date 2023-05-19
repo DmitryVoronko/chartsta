@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
@@ -6,9 +8,26 @@ plugins {
     kotlin("kapt")
 }
 
+val keystorePropertiesFile = file("ks/keystore.properties")
+val keystoreProperties = Properties().apply {
+    load(keystorePropertiesFile.inputStream())
+}
+
 android {
     namespace = "com.dmitriivoronko.chartsta"
     compileSdk = 33
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("ks/debug.keystore")
+        }
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storePassword = keystoreProperties["storePassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+        }
+    }
 
     defaultConfig {
         applicationId = "com.dmitriivoronko.chartsta"
@@ -30,6 +49,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -67,6 +87,15 @@ dependencies {
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.vico.charts.core)
+    implementation(libs.vico.charts.compose)
+    implementation(libs.vico.charts.compose.material3)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    implementation(libs.logcat)
 
     testImplementation(libs.junit)
 

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Charts</string>
+
     <string name="point_count_input_screen_input_label">Coordinates count</string>
     <string name="point_count_input_screen_go_action">Go</string>
+
+    <string name="explore_screen_progress_label">Loading points…</string>
+    <string name="explore_screen_error_label">Points loading failed</string>
+    <string name="explore_screen_retry_action">Try again</string>
 </resources>

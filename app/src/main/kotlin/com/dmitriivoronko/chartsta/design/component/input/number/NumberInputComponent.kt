@@ -20,18 +20,18 @@ import com.dmitriivoronko.chartsta.design.theme.AppTheme
 
 @Composable
 fun NumberInputComponent(
-    value: String,
-    onValueChange: (String) -> Unit,
+    value: Int?,
+    onValueChange: (Int?) -> Unit,
     modifier: Modifier = Modifier,
     label: @Composable (() -> Unit)? = null,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
     OutlinedTextField(
-        value = value,
+        value = value?.toString().orEmpty(),
         onValueChange = { newValue ->
             if (newValue.isDigitsOnly()) {
-                onValueChange(newValue)
+                onValueChange(newValue.toIntOrNull())
             }
         },
         label = label,
@@ -54,7 +54,7 @@ fun NumberInputComponentPreview() {
             contentAlignment = Alignment.Center,
         ) {
             var numberInputState by remember {
-                mutableStateOf("")
+                mutableStateOf<Int?>(null)
             }
 
             NumberInputComponent(
