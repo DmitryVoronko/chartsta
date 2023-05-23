@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,6 +29,7 @@ fun TableComponent(
     column2Title: String,
     data: List<Pair<String, String>>,
     modifier: Modifier = Modifier,
+    state: LazyListState = rememberLazyListState(),
 ) {
     val column1Weight = .5f
     val column2Weight = .5f
@@ -35,16 +39,23 @@ fun TableComponent(
         modifier = Modifier
             .fillMaxSize()
             .then(modifier),
+        state = state,
     ) {
-        stickyHeader {
+        stickyHeader(
+            key = "$column1Title$column2Title",
+            contentType = "header",
+        ) {
             Row(Modifier.background(MaterialTheme.colorScheme.outline)) {
                 TableCell(text = column1Title, weight = column1Weight)
                 TableCell(text = column2Title, weight = column2Weight)
             }
         }
 
-        items(data.size) {
-            val (text1, text2) = data[it]
+        items(
+            items = data,
+            key = { (first, second) -> "$first$second" },
+            contentType = { _ -> "item" },
+        ) { (text1, text2) ->
             Row(Modifier.fillMaxWidth()) {
                 TableCell(text = text1, weight = column1Weight)
                 TableCell(text = text2, weight = column2Weight)
