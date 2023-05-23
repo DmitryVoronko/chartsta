@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Charts"
+rootProject.name = "Chartsta"
 include(":app")
