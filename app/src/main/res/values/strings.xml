@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Charts</string>
+    <string name="app_name">Chartsta</string>
 
     <string name="point_count_input_screen_input_label">Coordinates count</string>
     <string name="point_count_input_screen_go_action">Go</string>

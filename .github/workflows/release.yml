@@ -37,6 +37,12 @@ jobs:
         ENCODED_KEYSTORE_PROPERTIES: ${{ secrets.RELEASE_KEYSTORE_PROPERTIES }}
 
       run: bash .ci/decode_release_keystore.sh $ENCODED_KEYSTORE $ENCODED_KEYSTORE_PROPERTIES
+
+    - name: Decode google services config
+      env:
+        ENCODED_GOOGLE_SERVICES_CONFIG: ${{ secrets.GOOGLE_SERVICES_CONFIG }}
+
+      run: bash .ci/decode_google_services_config.sh $ENCODED_GOOGLE_SERVICES_CONFIG
       
     - name: Build Release apk
       run: ./gradlew assembleRelease
