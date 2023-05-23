@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -33,8 +35,11 @@ import com.patrykandpatrick.vico.compose.axis.vertical.endAxis
 import com.patrykandpatrick.vico.compose.axis.vertical.startAxis
 import com.patrykandpatrick.vico.compose.chart.Chart
 import com.patrykandpatrick.vico.compose.chart.line.lineChart
+import com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollState
+import com.patrykandpatrick.vico.compose.chart.scroll.rememberChartScrollState
 import com.patrykandpatrick.vico.compose.m3.style.m3ChartStyle
 import com.patrykandpatrick.vico.compose.style.ProvideChartStyle
+import com.patrykandpatrick.vico.core.entry.ChartEntryModel
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.patrykandpatrick.vico.core.entry.entryOf
 import java.io.IOException
@@ -52,6 +57,25 @@ fun ExploreScreen(
                 .padding(contentPadding)
                 .fillMaxSize(),
         ) {
+            val tableData by remember(points) {
+                derivedStateOf {
+                    points.map { point ->
+                        point.x.toString() to point.y.toString()
+                    }
+                }
+            }
+
+            val chartEntryModel by remember(points) {
+                derivedStateOf {
+                    points
+                        .map { point -> entryOf(point.x, point.y) }
+                        .let { floatEntries -> entryModelOf(floatEntries) }
+                }
+            }
+
+            val tableState = rememberLazyListState()
+            val chartScrollState = rememberChartScrollState()
+
             if (this.maxWidth < 400.dp) {
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -65,8 +89,11 @@ fun ExploreScreen(
                         ErrorBlock(onRetryClick)
                     } else {
                         ContentBlock(
-                            points,
+                            tableData,
+                            chartEntryModel,
                             Modifier.weight(1f),
+                            tableState,
+                            chartScrollState,
                         )
                     }
                 }
@@ -82,8 +109,11 @@ fun ExploreScreen(
                         ErrorBlock(onRetryClick)
                     } else {
                         ContentBlock(
-                            points,
+                            tableData,
+                            chartEntryModel,
                             Modifier.weight(1f),
+                            tableState,
+                            chartScrollState,
                         )
                     }
                 }
@@ -125,31 +155,19 @@ private fun ProgressBlock() {
 
 @Composable
 private fun ContentBlock(
-    points: List<Point>,
+    tableData: List<Pair<String, String>>,
+    chartEntryModel: ChartEntryModel,
     childrenModifier: Modifier,
+    tableState: LazyListState = rememberLazyListState(),
+    chartScrollState: ChartScrollState = rememberChartScrollState(),
 ) {
-    val tableData by remember(points) {
-        derivedStateOf {
-            points.map { point ->
-                point.x.toString() to point.y.toString()
-            }
-        }
-    }
-
     TableComponent(
         column1Title = "x",
         column2Title = "y",
         data = tableData,
         modifier = childrenModifier,
+        state = tableState,
     )
-
-    val chartEntryModel by remember(points) {
-        derivedStateOf {
-            points
-                .map { point -> entryOf(point.x, point.y) }
-                .let { floatEntries -> entryModelOf(floatEntries) }
-        }
-    }
 
     ProvideChartStyle(
         chartStyle = m3ChartStyle(),
@@ -162,6 +180,7 @@ private fun ContentBlock(
             topAxis = topAxis(),
             endAxis = endAxis(),
             modifier = childrenModifier,
+            chartScrollState = chartScrollState,
         )
     }
 }
