@@ -32,15 +32,9 @@ jobs:
     - name: Decode Keystore
       env:
         ENCODED_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
-        SIGNING_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_PATH }}
         ENCODED_KEYSTORE_PROPERTIES: ${{ secrets.RELEASE_KEYSTORE_PROPERTIES }}
-        SIGNING_KEYSTORE_PROPERTIES_PATH: ${{ secrets.RELEASE_KEYSTORE_PROPERTIES_PATH }}
 
-      run: |
-        echo $ENCODED_KEYSTORE > keystore-b64.txt
-        base64 -d keystore-b64.txt > $SIGNING_KEYSTORE_PATH
-        echo $ENCODED_KEYSTORE_PROPERTIES > keystore-properties-b64.txt
-        base64 -d keystore-properties-b64.txt > $SIGNING_KEYSTORE_PROPERTIES_PATH
+      run: bash .ci/decode_release_keystore.sh $ENCODED_KEYSTORE $ENCODED_KEYSTORE_PROPERTIES
       
     - name: Run lint
       run: ./gradlew app:lintDebug
