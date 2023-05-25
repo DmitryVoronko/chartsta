@@ -2,6 +2,7 @@ package com.dmitriivoronko.chartsta.design.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Blue = Color(0xFF2196F3)
-val Yellow = Color(0xFFFFEB3B)
-val Green = Color(0xFF4CAF50)
+val Green500 = Color(0xFF1EB980)
+val Purple200 = Color(0xffB15DFF)
+val Yellow300 = Color(0xffffcf44)
+val DarkBlue900 = Color(0xFF26282F)

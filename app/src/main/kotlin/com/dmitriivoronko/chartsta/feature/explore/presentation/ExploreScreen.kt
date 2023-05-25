@@ -39,6 +39,8 @@ import com.patrykandpatrick.vico.compose.chart.scroll.ChartScrollState
 import com.patrykandpatrick.vico.compose.chart.scroll.rememberChartScrollState
 import com.patrykandpatrick.vico.compose.m3.style.m3ChartStyle
 import com.patrykandpatrick.vico.compose.style.ProvideChartStyle
+import com.patrykandpatrick.vico.compose.style.currentChartStyle
+import com.patrykandpatrick.vico.core.chart.copy
 import com.patrykandpatrick.vico.core.entry.ChartEntryModel
 import com.patrykandpatrick.vico.core.entry.entryModelOf
 import com.patrykandpatrick.vico.core.entry.entryOf
@@ -172,8 +174,16 @@ private fun ContentBlock(
     ProvideChartStyle(
         chartStyle = m3ChartStyle(),
     ) {
+        val defaultLines = currentChartStyle.lineChart.lines
+
         Chart(
-            chart = lineChart(),
+            chart = lineChart(
+                lines = listOf(
+                    remember(defaultLines) {
+                        defaultLines.first().copy(pointSizeDp = 1f)
+                    }
+                )
+            ),
             model = chartEntryModel,
             startAxis = startAxis(),
             bottomAxis = bottomAxis(),
